@@ -12,11 +12,10 @@ class Note(db.Model):
 class Biblio(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     type=db.Column(db.String(80))
-   # date=db.Column(db.DateTime(timezone=True), default=func.now() )
     note=db.Column(db.Integer)
     titre=db.Column(db.String(100))
     categorie=db.Column(db.String(80))
-    #profil=db.Column(db.String(50))
+   
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
     
        
