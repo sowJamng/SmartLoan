@@ -2,7 +2,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
-import 
+from .script import *
+
 db=SQLAlchemy()
 DB_NAME="database.db"
 
@@ -20,7 +21,7 @@ def create_app():
     app.register_blueprint(auth,urlprefix='/')
     app.register_blueprint(views,urlprefix='/index')
     
-    from .models import User,Note
+    from .models import User,Note,Biblio
     create_databases(app)
     
     login_manager=LoginManager()

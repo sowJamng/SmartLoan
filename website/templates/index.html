@@ -1,6 +1,34 @@
 {% extends "base.html" %} {% block title %}Changed{% endblock  %}
 {% block  content %}
+<h1 align="center">Biblio</h1>
+<ul class="list-group list-group-flush" id="biblio">
+    <table class="table-primary">
+           {% for titre in biblios.titre %}
+             <tr class="table-primary" >
+             <td class="table-primary">Titre:{{titre}}</td>
+            {% endfor %}
+           <!-- <td class="table-primary">Profi{{biblios.Profil}}</td>-->
+        </tr>
+        <tr class="table-primary" >
+        <td class="table-primary">Langue:{{biblios.langue}}</td>
+            
+        </tr>   
+        <tr>
+            <td class="table-primary">Nombre de pret Total{{biblios.nombre_de_pret_total}}</td>
+            
+        </tr>
+        <tr>
+            <td class="table-primary">categorie{{biblios.categorie_statistique_1}}</td>
+            
+        </tr>
+        <tr>
+            <td class="table-primary">Note {{biblios.Note}}</td>
+        </tr>
 
+    </table>
+    <!--<li class="list-group-item">{{biblios.titre}}</li>-->
+    
+</ul>
 {% endblock %}
 
   

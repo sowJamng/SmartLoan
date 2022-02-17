@@ -12,8 +12,9 @@ class Note(db.Model):
 class Biblio(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     type=db.Column(db.String(80))
-    date=db.Column(db.DateTime(timezone=True), default=func.now() )
+   # date=db.Column(db.DateTime(timezone=True), default=func.now() )
     note=db.Column(db.Integer)
+    titre=db.Column(db.String(100))
     categorie=db.Column(db.String(80))
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
     
@@ -23,6 +24,7 @@ class User(db.Model,UserMixin):
     email=db.Column(db.String(150),unique=True)
     profil=db.Column(db.String(100))
     prenom=db.Column(db.String(80))
+    #profil=db.Column(db.Integer)
     password=db.Column(db.String(150))
     notes=db.relationship('Note')
     biblios=db.relationship('Biblio')

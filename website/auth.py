@@ -40,7 +40,7 @@ def sign_up():
       #  nom=request.form.get('nom')
         password1=request.form.get('password')
         password2=request.form.get('cpassword') 
-        
+        profil=0
         user=User.query.filter_by(email=email).first()
         if user:
             flash('l\'adresse email fournit existe déjà')

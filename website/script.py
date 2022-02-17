@@ -18,31 +18,41 @@ def display(donnees):
 
 def import_data(l):
   cols = [x for x in range (37)]
-  donnees = pd.read_csv('../Biblio.csv', usecols=cols,sep=";")
+  donnees = pd.read_csv('C:/Miage/ML/projet/Biblio.csv', usecols=cols,sep=";")
   donnees.drop(['isbn','issn','ean','edition','ndeg','co_auteur_nom','co_auteur_prenom' ,'dates', 'auteur_secondaire_nom', 'auteur_secondaire_prenom',
   'auteur_secondaire_dates', 'auteur_collectivite', 'subdivision_auteur_collectivite', 'co_auteur_collectivite', 'subdivision_co_auteur_collectivite',
   'auteur_secondaire_collectivite', 'subdivision_auteur_secondaire_collectivite', 'cote_majoritaire',
   'nombre_de_localisations', 'titre_de_serie', 'auteur_nom', 'auteur_prenom', 'auteur_dates', 'indice', 'nombre_de_prets_2017', 'collection',
   'nombre_d_exemplaires', 'format', 'editeur', 'nombre_de_pret_annee_2018_au_26_juillet_2018'], axis=1,inplace=True)
   donnees.drop(donnees.tail(l).index,inplace=True)
+ 
+  print(donnees.shape)
   return(donnees)
 
 def replace_null(donnees):
   donnees['nombre_de_pret_total'].fillna(0.0, inplace=True)
   donnees=donnees.fillna("0", inplace=True)
+  donnees=pd.DataFrame(donnees)
+  print('replace null')
+  print(donnees.shape)
+  
 
 def generate_data(donnees):
+  print(donnees.shape)
   pd.set_option("mode.chained_assignment", None)
   mylist = []
+  donnees=pd.DataFrame(donnees)
   for i in range(0,100):
     x = random.randint(1,45)
     mylist.append(x)
   for row in range(1534):
-    donnees['Utilisateur']="Utilisateur"
-    donnees['Profil']='Profil'
+    #donnees['Utilisateur']="Utilisateur"
+    donnees=donnees.assign(Profil='auteur') 
+    
+  print(donnees.shape)
   for row in range(1534):
     num=random.choice(mylist)
-    donnees['Utilisateur'][row]="Utilisateur"+str(num)
+    #donnees['Utilisateur'][row]="Utilisateur"+str(num)
     if num < 15 :
       donnees['Profil'][row]="Profil A"
     elif num < 30 :
@@ -63,19 +73,23 @@ def generate_data(donnees):
   donnees.loc[b_aime_pas,'Note'] = np.random.randint(2, size=sum(b_aime_pas))
   donnees.loc[c_aime,'Note'] = np.random.randint(2, size=sum(c_aime))+4
   donnees.loc[c_aime_pas,'Note'] = np.random.randint(2, size=sum(c_aime_pas))
-
+  print('generate data')
+  print(donnees.shape)
+  return(donnees)
 def transform_data(donnees):
   Encoder=preprocessing.LabelEncoder()
-  donnees=donnees[["ndeg_de_notice","titre", "langue", "date", "libelle_v_smart_et_webopac","nombre_de_pret_total", "categorie_statistique_1", "Note", "Utilisateur", "Profil"]]
+  donnees=donnees[["ndeg_de_notice","titre", "langue", "date", "libelle_v_smart_et_webopac","nombre_de_pret_total", "categorie_statistique_1", "Note", "Profil"]]
   donnees["langue"]=Encoder.fit_transform(donnees["langue"])
   donnees["titre"]=Encoder.fit_transform(donnees["titre"])
   donnees["date"]=Encoder.fit_transform(donnees["date"])
   donnees["libelle_v_smart_et_webopac"]=Encoder.fit_transform(donnees["libelle_v_smart_et_webopac"])
   donnees["nombre_de_pret_total"]=Encoder.fit_transform(donnees["nombre_de_pret_total"])
   donnees["categorie_statistique_1"]=Encoder.fit_transform(donnees["categorie_statistique_1"])
-  donnees["Utilisateur"]=Encoder.fit_transform(donnees["Utilisateur"])
+  #donnees["Utilisateur"]=Encoder.fit_transform(donnees["Utilisateur"])
   donnees["Profil"]=Encoder.fit_transform(donnees["Profil"])
   donnees["Note"]=Encoder.fit_transform(donnees["Note"])
+  print('transform_data')
+  print(donnees.shape)
   return(donnees)
 
 def separate_data(donnees):
@@ -92,14 +106,13 @@ def separate_data(donnees):
   labels=kmeans.predict(x_train)
   print(y_train)
   print(labels)
-
-def main():
+   
+def main_script():
   emprunt=import_data(814000)
   replace_null(emprunt)
-  generate_data(emprunt)
-  emprunt=transform_data(emprunt)
+  emprunt=generate_data(emprunt)
+ # emprunt=transform_data(emprunt)
   display(emprunt)
-  #separate_data(emprunt)
-
-if __name__ == "__main__":
-    main()
+ # separate_data(emprunt)
+  return emprunt
+dataBiblio=main_script()

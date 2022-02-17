@@ -1,14 +1,11 @@
 {% extends "base.html" %} {% block title %}Changed{% endblock  %}
 {% block  content %}
-<h1 align="center">Ma Biblio</h1>
-<ul class="list-group list-group-flush" id="biblio">
-    {%for biblio in user.biblio%}
-    <li class="list-group-item">{{note}}</li>
-    {%endfor %}
-</ul>   
+
 <form method="post">
     <span class="border"></span>
     <div class="row"> 
+      <label class="input-group-text" for="inputGroupSelect01" name="titre">Titre:</label>
+      <input type="text" name="titre" id="titre" placeholder="">
       <label class="input-group-text" for="inputGroupSelect01">Type:</label>
       <select name="type" class="form-select form-select-sm" aria-label=".form-select-sm example">
         <option value="francais">Livre</option>
@@ -21,12 +18,12 @@
        </select>
     <label class="input-group-text" for="inputGroupSelect01" >Catégorie:</label> 
         <select name="categorie" class="form-select form-select-sm" aria-label=".form-select-sm example">
-          <option value="literaturefrancaise">literaturefrancaise</option>
-          <option value="literatureetrangere">literatureetrangere</option>
-          <option value="literatureetrangere">literatureetrangere</option>
-          <option value="literatureetrangere">literatureetrangere</option>
-          <option value="literatureetrangere">literatureetrangere</option>
-          <option value="literatureetrangere">literatureetrangere</option>
+          <option value="literaturefrancaise">D103 Psychologie</option>
+          <option value="literatureetrangere">CFRA Cinema francais</option>
+          <option value="literatureetrangere">LFRA Litterature francaise</option>
+          <option value="literatureetrangere">D506 Botanique</option>
+          <option value="literatureetrangere">Littérature étrangère</option>
+          <option value="literatureetrangere">D506 Botanique</option>
         </select>
       
       <label class="input-group-text" for="inputGroupSelect01">Note :</label>
@@ -44,4 +41,14 @@
       <button type="submit"  align="center" class="btn btn-primary">Valider</button>
     </div>
     </form>
+<br/>
+    <h1 align="center">Ma Biblio</h1>
+<ul class="list-group list-group-flush" id="biblio">
+    {%for biblio in user.biblio%}
+    <li class="list-group-item">{{biblio.titre}}</li>
+    <li class="list-group-item">{{biblio.categorie}}</li>
+    <li class="list-group-item">{{biblio.note}}</li>
+   
+    {%endfor %}
+</ul>   
 {% endblock %}
