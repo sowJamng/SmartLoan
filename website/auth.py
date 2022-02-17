@@ -47,7 +47,7 @@ def sign_up():
         elif len(email) <4:
             flash('L\'Adresse email fournit doit etre superieur à 4 caracteres',category='error')
         
-        elif len(password1)<7:
+        elif len(pass1)<7:
             flash('Le mot de passe doit etre suprieur à 7 careactere ',category='error')
         elif pass1!=pass2:
             flash('Le mot de posse ne correepond pas',category='error')
