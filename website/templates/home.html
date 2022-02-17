@@ -50,5 +50,14 @@
     <li class="list-group-item">{{biblio.note}}</li>
    
     {%endfor %}
-</ul>   
+</ul>
+<ul class="list-group list-group-flush" id="biblio">
+  {%for biblio in biblios%}
+  {%if biblio.profile==user.profile %}
+  <li class="list-group-item">{{biblio.titre}}</li>
+  <li class="list-group-item">{{biblio.categorie}}</li>
+  <li class="list-group-item">{{biblio.note}}</li>
+   {%endif%}
+  {%endfor %}
+</ul>
 {% endblock %}

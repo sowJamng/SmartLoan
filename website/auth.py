@@ -37,7 +37,7 @@ def sign_up():
     if request.method=='POST':
         email=request.form.get('email')
         prenom=request.form.get('prenom')
-      #  nom=request.form.get('nom')
+        profil="Profil A"
         password1=request.form.get('password')
         password2=request.form.get('cpassword') 
         profil=0
@@ -52,7 +52,7 @@ def sign_up():
         elif password1!=password2:
             flash('Le mot de posse ne correepond pas',category='error')
         else:
-            new_user=User(email=email,prenom=prenom,password=generate_password_hash(password1,method='sha256'))
+            new_user=User(email=email,prenom=prenom,password=generate_password_hash(password1,method='sha256'),profil=profil)
             db.session.add(new_user)
             db.session.commit()
             login_user(user,remember=True)
