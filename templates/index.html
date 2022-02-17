@@ -1,0 +1,84 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Libary</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
+        </li>
+        
+      </ul>
+    </div>
+  </nav>
+  
+  
+  <form >
+  <span class="border"></span>
+  <div class="row">
+    <div class="col-6">Type :
+    
+  
+      <input type="radio" name="type" value="livres" formControlName="type">Livre
+      <input type="radio" name="type" value="dvds" formControlName="type">DVD
+  
+  
+    
+    
+    </div>
+    <div class="col-6">Langue :
+  
+    
+  
+  
+      <label>
+      <input type="radio"  name="langue" value="francais" formControlName="langue">Français
+    </label>
+    <label>
+      <input type="radio" name="langue" value="anglais" formControlName="langue">Anglais
+      </label>
+    </div>
+   
+  </div>
+  
+  
+  <div class="row">
+    <div class="col-6">Catégorie :
+    
+    
+      <label>
+      <input type="radio" name="categorie" value="literaturefrancaise" formControlName="categorie">Littérature française 
+      </label>
+      <label>
+      <input type="radio" name="categorie"  value="literatureetrangere" formControlName="categorie">Littérature étrangère
+    </label>
+    </div>
+    <div class="col-6">Note :
+     
+     <label>
+     <input type="radio" name="note" value="1"  formControlName="note">1 
+     </label>
+     <label>
+      <input type="radio" name="note" value="2" formControlName="note">2
+      </label>
+      <label>
+      <input type="radio" name="note" value="3" formControlName="note">3
+      </label>
+      <label>
+  
+      <input type="radio"  name="note" value="4" formControlName="note">4
+    </label>
+    <label>
+      <input type="radio" name="note" value="5"  formControlName="note">5
+      </label>
+  
+    
+    </div>
+  
+  
+  
+    </div>
+    <button type="submit"  class="btn btn-primary">Envoyer</button>
+  
+  </form>
