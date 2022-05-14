@@ -52,10 +52,10 @@ def sign_up():
         elif pass1!=pass2:
             flash('Le mot de posse ne correepond pas',category='error')
         else:
-            new_user=User(email=email,prenom=prenom,password=generate_password_hash(pass1,method='sha256'),profil=profil)
+            new_user=User(email=email,prenom=prenom,password=generate_password_hash(pass1,method='sha256'))
             db.session.add(new_user)
             db.session.commit()
-            login_user(user,remember=True)
+            #login_user(user,remember=True)
             flash('Compte crée avec succés',category='success')
             
             return redirect(url_for('views.home'))

@@ -7,14 +7,16 @@ from sklearn.cluster import KMeans
 from sklearn import model_selection
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-import seaborn as sns
+#import seaborn as sns
 from sklearn import preprocessing
+import json
+from sklearn.preprocessing import StandardScaler
 
 def display(donnees):
-  print("Dimensions des données : " + str(donnees.shape))
-  print(donnees.dtypes)
-  print(donnees.isnull().sum())
-  print(donnees.head(10))
+   print("Dimensions des données : " + str(donnees.shape))
+  # print(donnees.dtypes)
+  # print(donnees.isnull().sum())
+  # print(donnees.head(10))
 
 def import_data(l):
   cols = [x for x in range (37)]
@@ -26,19 +28,18 @@ def import_data(l):
   'nombre_d_exemplaires', 'format', 'editeur', 'nombre_de_pret_annee_2018_au_26_juillet_2018'], axis=1,inplace=True)
   donnees.drop(donnees.tail(l).index,inplace=True)
  
-  print(donnees.shape)
+  #print(donnees.shape)
   return(donnees)
 
 def replace_null(donnees):
   donnees['nombre_de_pret_total'].fillna(0.0, inplace=True)
   donnees=donnees.fillna("0", inplace=True)
   donnees=pd.DataFrame(donnees)
-  print('replace null')
-  print(donnees.shape)
+  # print(donnees.shape)
   
 
 def generate_data(donnees):
-  print(donnees.shape)
+
   pd.set_option("mode.chained_assignment", None)
   mylist = []
   donnees=pd.DataFrame(donnees)
@@ -49,7 +50,6 @@ def generate_data(donnees):
     #donnees['Utilisateur']="Utilisateur"
     donnees=donnees.assign(Profil='auteur') 
     
-  print(donnees.shape)
   for row in range(1534):
     num=random.choice(mylist)
     #donnees['Utilisateur'][row]="Utilisateur"+str(num)
@@ -73,46 +73,98 @@ def generate_data(donnees):
   donnees.loc[b_aime_pas,'Note'] = np.random.randint(2, size=sum(b_aime_pas))
   donnees.loc[c_aime,'Note'] = np.random.randint(2, size=sum(c_aime))+4
   donnees.loc[c_aime_pas,'Note'] = np.random.randint(2, size=sum(c_aime_pas))
-  print('generate data')
-  print(donnees.shape)
-  return(donnees)
-def transform_data(donnees):
-  Encoder=preprocessing.LabelEncoder()
-  donnees=donnees[["ndeg_de_notice","titre", "langue", "date", "libelle_v_smart_et_webopac","nombre_de_pret_total", "categorie_statistique_1", "Note", "Profil"]]
-  donnees["langue"]=Encoder.fit_transform(donnees["langue"])
-  donnees["titre"]=Encoder.fit_transform(donnees["titre"])
-  donnees["date"]=Encoder.fit_transform(donnees["date"])
-  donnees["libelle_v_smart_et_webopac"]=Encoder.fit_transform(donnees["libelle_v_smart_et_webopac"])
-  donnees["nombre_de_pret_total"]=Encoder.fit_transform(donnees["nombre_de_pret_total"])
-  donnees["categorie_statistique_1"]=Encoder.fit_transform(donnees["categorie_statistique_1"])
-  #donnees["Utilisateur"]=Encoder.fit_transform(donnees["Utilisateur"])
-  donnees["Profil"]=Encoder.fit_transform(donnees["Profil"])
-  donnees["Note"]=Encoder.fit_transform(donnees["Note"])
-  print('transform_data')
-  print(donnees.shape)
+
   return(donnees)
 
 def separate_data(donnees):
   donneesNp=donnees.to_numpy()
   x = donneesNp[:,2:9:]
   y = donneesNp[:,9:10]
-  print(x.shape, y.shape)
+  #print(x.shape, y.shape)
   x_normalized=preprocessing.StandardScaler().fit_transform(x)
   x_train,x_test,y_train,y_test = model_selection.train_test_split(x_normalized,y,test_size = 0.8)
-  print(x_train.shape, x_test.shape, y_train.shape, y_test.shape)
-  print(pd.DataFrame(x_train).head())
-  kmeans = cluster.KMeans(n_clusters=3)
+  # print(x_train.shape, x_test.shape, y_train.shape, y_test.shape)
+  # print(pd.DataFrame(x_train).head())
+  kmeans = cluster.KMeans(n_clusters=4)
   kmeans.fit(x_train)
   labels=kmeans.predict(x_train)
-  print(y_train)
-  print(labels)
-   
+  # print(y_train)
+  # print(labels)
+
+def generateUser(data):
+   mylist = []
+   for i in range(0,400):
+     x = random.randint(1,400)
+     mylist.append(x)
+
+   for row in range(15527):
+      data['Email']="email"
+      data['Prenom']="prenom"
+      data['Nom']="name"
+      data['Password']="password"
+
+   for row in range(15527):
+      num=random.choice(mylist)
+      data['Prenom'][row]="Prenom"+str(num)
+      data['Nom'][row]="Nom"+str(num)
+      data['Email'][row]=str(num)+"@gmail.com"
+      data['Password']="password"+str(num)
+   return data  
+ 
 def main_script():
   emprunt=import_data(814000)
   replace_null(emprunt)
   emprunt=generate_data(emprunt)
- # emprunt=transform_data(emprunt)
-  display(emprunt)
- # separate_data(emprunt)
+  # emprunt=transform_data(emprunt)
+  #display(emprunt)
+  # separate_data(emprunt)
+  #print(emprunt)
   return emprunt
+
 dataBiblio=main_script()
+data=generateUser(dataBiblio)
+
+Encoder =preprocessing.LabelEncoder()
+data["langue"]=Encoder.fit_transform(data["langue"] )
+data["titre"]=Encoder.fit_transform(data["titre"])
+data["date"]=Encoder.fit_transform(data["date"] )
+data["libelle_v_smart_et_webopac"]=Encoder.fit_transform(data["libelle_v_smart_et_webopac"] )
+data["categorie_statistique_1"]=Encoder.fit_transform(data["categorie_statistique_1"])
+data["Profil"]=Encoder.fit_transform(data["Profil"])
+data["date"]=Encoder.fit_transform(data["date"])
+data["Email"]=Encoder.fit_transform(data["Email"])
+data["Prenom"]=Encoder.fit_transform(data["Prenom"])
+data["Nom"]=Encoder.fit_transform(data["Nom"])
+data["Password"]=Encoder.fit_transform(data["Password"])
+
+kmeans = KMeans(n_clusters = 4)
+kmeans.fit(data)
+labels = kmeans.predict(data)
+centres = kmeans.cluster_centers_
+#data = data.set_index('id', drop = False)
+for row in range(1534):
+   data['cluster']="cluster"
+for row in range(1534):
+   data['cluster'][row]=labels[row]
+       
+#df=pd.DataFrame({'user_id':data.index,'cluster':labels})
+
+# df = pd.DataFrame({'user_id':data.index,
+#                    'langue':data['langue'],
+#                    'titre':data['titre'],
+#                    'Email':data['Email'],
+#                    #'Prenom':data['Prenom'],
+#                    #'Nom':data['Nom'],
+#                   # 'Password':data['Password'],
+#                    'libelle_v_smart_et_webopac':data['libelle_v_smart_et_webopac'],
+#                    'nombre_de_pret_total':data['nombre_de_pret_total'],
+#                    'Note':data['Note'],
+#                    'categorie_statistique_1':data['categorie_statistique_1'],
+#                    'labels':labels}).sort_values(by=['user_id'],axis = 0)
+#print(df)
+# Convertir le dataframe en json 
+df_json = data.to_json(path_or_buf='dta_Biblio.json',orient="records")
+#parsed = json.loads(datajson)
+#json.dumps(parsed,indent=4)
+
+print(df_json)

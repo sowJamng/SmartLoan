@@ -22,7 +22,7 @@ class Biblio(db.Model):
 class User(db.Model,UserMixin):
     id=db.Column(db.Integer,primary_key=True)
     email=db.Column(db.String(150),unique=True)
-    profil=db.Column(db.String(100))
+   # profil=db.Column(db.String(100))
     prenom=db.Column(db.String(80))
     profil=db.Column(db.String(50))
     password=db.Column(db.String(150))
