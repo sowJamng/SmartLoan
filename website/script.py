@@ -14,13 +14,13 @@ from sklearn.preprocessing import StandardScaler
 
 def display(donnees):
    print("Dimensions des données : " + str(donnees.shape))
-  # print(donnees.dtypes)
+   print(donnees.dtypes)
   # print(donnees.isnull().sum())
   # print(donnees.head(10))
 
 def import_data(l):
   cols = [x for x in range (37)]
-  donnees = pd.read_csv('C:/Miage/ML/projet/Biblio.csv', usecols=cols,sep=";")
+  donnees = pd.read_csv('D:/Users/msellami2/Biblio.csv', usecols=cols,sep=";" , low_memory=False)
   donnees.drop(['isbn','issn','ean','edition','ndeg','co_auteur_nom','co_auteur_prenom' ,'dates', 'auteur_secondaire_nom', 'auteur_secondaire_prenom',
   'auteur_secondaire_dates', 'auteur_collectivite', 'subdivision_auteur_collectivite', 'co_auteur_collectivite', 'subdivision_co_auteur_collectivite',
   'auteur_secondaire_collectivite', 'subdivision_auteur_secondaire_collectivite', 'cote_majoritaire',

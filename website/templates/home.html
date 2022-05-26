@@ -1,11 +1,11 @@
 {% extends "base.html" %} {% block title %}Changed{% endblock  %}
 {% block  content %}
 
-<form method="post">
+<form method="POST">
     <span class="border"></span>
     <div class="row"> 
       <label class="input-group-text" for="inputGroupSelect01" name="titre">Titre:</label>
-      <input type="text" name="titre" id="titre" placeholder=""> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+      <input type="text" name="titre" id="titre" placeholder="" > &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
       <label class="input-group-text" for="inputGroupSelect01">Type:</label>
       <select name="type" class="form-select form-select-sm" aria-label=".form-select-sm example">
         <option value="francais">Livre</option>
@@ -37,20 +37,42 @@
      
       </div>
     </br>
-    <div align="center">
+  <div align="center">
       <button type="submit"  align="center" class="btn btn-primary">Valider</button>
     </div>
     </form>
 <br/>
     <h1 align="center">Ma Biblio</h1>
-<ul class="list-group list-group-flush" id="biblio">
-    {%for biblio in user.biblio%}
+<!-- <ul class="list-group list-group-flush" id="biblio">
+    {%for biblio in user.biblios%}
     <li class="list-group-item">{{biblio.titre}}</li>
     <li class="list-group-item">{{biblio.categorie}}</li>
     <li class="list-group-item">{{biblio.note}}</li>
    
     {%endfor %}
-</ul>
+</ul> -->
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      
+      <th scope="col">Titre</th>
+      <th scope="col">Catégorie</th>
+      <th scope="col">Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for biblio in user.biblios%}
+    <tr>
+      
+      <td>{{biblio.titre}}</td>
+      <td>{{biblio.categorie}}</td>
+      <td>{{biblio.note}}</td>
+    </tr>
+    {%endfor %}
+  </tbody>
+</table>
+
 <ul class="list-group list-group-flush" id="biblio">
   {%for biblio in biblios%}
   {%if biblio.profile==user.profile %}

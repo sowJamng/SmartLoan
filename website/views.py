@@ -14,11 +14,10 @@ def home():
           categorie=request.form.get('categorie')
           note=int(request.form.get('note'))
           titre=request.form.get('titre')
-          new_biblio=Biblio(type=type,note=note,titre=titre,categorie=categorie,user_id=current_user.id)        
+          new_biblio=Biblio(type=type,note=note,titre=titre,categorie=categorie,user_id=current_user.id)
           db.session.add(new_biblio)
           db.session.commit()
           flash('Biblio ajoutée avec succés',category='success')
-       
        return render_template('home.html',user=current_user)
 
 @views.route('/index',methods=['POST','GET'])
