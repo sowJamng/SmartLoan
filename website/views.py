@@ -21,5 +21,14 @@ def home():
        return render_template('home.html',user=current_user)
 
 @views.route('/index',methods=['POST','GET'])
+@login_required
 def index():
    return render_template('index.html',user=current_user,biblios=dataBiblio)
+
+@views.route('/emprunt',methods=['POST','GET'])
+@login_required
+def emprunt():
+   return render_template('emprunt.html',user=current_user,biblios=dataBiblio)
+
+
+   

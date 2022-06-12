@@ -20,7 +20,7 @@ def create_app():
    # app.register_blueprint(views,urlprefix='/')
     app.register_blueprint(auth,urlprefix='/')
     app.register_blueprint(views,urlprefix='/index')
-    
+
     from .models import User
     create_databases(app)
     
