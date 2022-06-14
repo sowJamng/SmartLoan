@@ -1,0 +1,59 @@
+
+{% extends "base.html" %} {% block title %}Changed{% endblock  %}
+{% block  content %}
+
+
+
+  <style>
+    body {
+      font-family: 'IBM Plex Sans Thai', serif;
+      font-size: 14px;
+    }
+  </style>
+
+  <body>
+
+    <div class="prediction">
+      <div class="top-heading">
+        <b>
+
+          {{ result_value}}
+
+        </b>
+      </div>
+      <br> <br>
+
+
+
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            
+            <th scope="col">Langue</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Date</th>
+            <th scope="col">Nombre de fois emprunté</th>
+            <th scope="col">Catégorie</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for livres in datafr%}
+          <tr>
+            
+            <td>{{livres.langue}}</td>
+            <td>{{livres.titre}}</td>
+            <td>{{livres.date}}</td>
+            <td>{{livres.nombre_de_pret_total}}</td>
+            <td>{{livres.categorie_statistique_1}}</td>
+        
+          </tr>
+          {%endfor %}
+        </tbody>
+      </table>
+      
+    </div>
+
+  </body>
+
+  {% endblock %}

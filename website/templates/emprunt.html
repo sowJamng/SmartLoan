@@ -356,17 +356,17 @@
 
 <div class="wrapper fadeInDown" style=" padding-top: 50px; ">
   <div id="formContent" style=" padding-top: 50px;    padding-bottom: 50px">
-    <form  method="POST">
+    <form  method="POST" action='/predict'>
       <h4> Veuillez introduire vos préférences</h4>
 
-      <input type="text" class="fadeIn third" placeholder="Veuillez choisir un titre" name="titre" id="titre"  />
+      <!-- <input type="text" class="fadeIn third" placeholder="Veuillez choisir un titre" name="titre" id="titre"  /> -->
 
 
-      <select name="type" class="fadeIn fourth" aria-label=".form-select-sm example" >
+      <!-- <select name="type" class="fadeIn fourth" aria-label=".form-select-sm example" >
         <option selected value="" disabled >Veuillez choisir un livre</option>
-        <option value="francais">Livre</option>
-        <option value="anglais">DVD</option> 
-      </select>
+        <option value="livre">Livre</option>
+        <option value="dvd">DVD</option> 
+      </select> -->
 
       <select name="langue" class="fadeIn fourth" aria-label=".form-select-sm example" >
         <option selected value="" disabled >Veuillez choisir une langue</option>
@@ -375,27 +375,40 @@
       </select>
 
 
-      <select name="categorie" class="fadeIn fourth" aria-label=".form-select-sm example" >
+       <select name="categorie_statistique_1" class="fadeIn fourth" aria-label=".form-select-sm example" >
          <option  selected value="" disabled >Veuillez choisir une catégorie</option>
-           <option value="literaturefrancaise">D103 Psychologie</option>
-          <option value="literatureetrangere">CFRA Cinema francais</option>
-          <option value="literatureetrangere">LFRA Litterature francaise</option>
-          <option value="literatureetrangere">D506 Botanique</option>
-          <option value="literatureetrangere">Littérature étrangère</option>
-          <option value="literatureetrangere">D506 Botanique</option>
+           <option value="0">D002 Informatique et ordinateurs</option>
+          <option value="2">D103 Psychologie</option>
+          <option value="3">D901 Histoire generale</option>
+          <option value="4">D711 Sport</option>
+          <option value="5">D602 Medecine et sexualite</option>
+          <option value="6">D607 Gestion</option>
+          <option value="60">D708 Cinema</option>
+
+          <option value="60">D910 Geographie</option>
+
+          <option value="60">D305 Droit, administration, questions sociales</option>
+          <option value="60">D801 Etudes litteraires, revues litteraires</option>
+
+          <option value="1">D101 Philosophie</option>
+          <option value="60">D502 Math., astronomie, physique, chimie</option>
+
+          <option value="3">D303 Economie sauf metiers, commerce</option>
+
+          
       </select>
 
 
-      <select name="note" class="fadeIn fourth" aria-label=".form-select-sm example" >
-        <option selected value="" disabled >Veuillez choisir une note</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
+      <!-- <select name="nombre_de_pret_total" class="fadeIn fourth" aria-label=".form-select-sm example" >
+        <option selected value="" disabled >Veuillez choisir un interval de nombre de prêts</option>
+        <option value="1">[0..10]</option>
+        <option value="2">[10..30]</option>
+        <option value="3">[30..60]</option>
+        <option value="4">[60..80]</option>
+        <option value="5">[80..100]</option>
+      </select>  -->
 
-      <button type="submit" class="btn btn-primary">Envoyer</button>
+      <button type="submit" onClick="window.location.href='/predict'" class="btn btn-primary">Envoyer</button>
 
       <br>
     </form>
