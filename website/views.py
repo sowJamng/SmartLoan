@@ -1,10 +1,15 @@
-from flask import Blueprint,render_template,request,flash
+from flask import Blueprint, redirect,render_template,request,flash
 from flask_login import login_required,current_user
-from .models import Note
-from .models import Biblio
+from .models import Note, Preferences
+from .models import Biblio, User
 from . import db
 from .script import *
 from scipy.spatial import distance
+from sqlalchemy import create_engine, Column, Integer, String, text
+
+
+engine = create_engine('sqlite://', echo=False)
+
 
 views=Blueprint('views',__name__)
 
@@ -17,17 +22,23 @@ def home():
 @views.route('/index',methods=['POST','GET'])
 @login_required
 def index():
+   #Biblio.__table__.drop(engine)
+   #User.__table__.drop(engine)
    return render_template('index.html',user=current_user,biblios=dataBiblio)
 
 @views.route('/emprunt',methods=['POST','GET'])
 @login_required
 def emprunt():
+
+    
+
     if request.method=='POST': 
-          type=request.form.get('type')
+        
+          #type=request.form.get('type')
           categorie=request.form.get('categorie')
-          note=int(request.form.get('note'))
-          titre=request.form.get('titre')
-          new_biblio=Biblio(type=type,note=note,titre=titre,categorie=categorie,user_id=current_user.id)
+          #note=int(request.form.get('note'))
+          #titre=request.form.get('titre')
+          new_biblio=Biblio(categorie=categorie,user_id=current_user.id)
           db.session.add(new_biblio)
           db.session.commit()
           flash('Biblio ajoutée avec succés',category='success')
@@ -41,7 +52,15 @@ def predict():
         return 'The URL /predict is accessed directly. Go to the main page firstly'
 
     if request.method == 'POST':
-    
+        categorie=request.form.get('categorie_statistique_1')
+        langue=request.form.get('langue')
+          #note=int(request.form.get('note'))
+          #titre=request.form.get('titre')
+        #Biblio.query.delete()
+        new_pref=Preferences(categorie=categorie,langue=langue,user_id=current_user.id)
+        db.session.add(new_pref)
+        db.session.commit()
+        flash('Biblio ajoutée avec succés',category='success')
 
         input_val = request.form
 
@@ -107,8 +126,15 @@ def predict():
         return render_template(
             'predict.html',user=current_user,datafr=dataFrameFinal, result_value=f'Segment = #{index_min}'
             )
+@views.route('/delete/<int:id>')
+def deleteById(id):
+    p = Preferences.query.get_or_404(id)
+    db.session.delete(p)
+    db.session.commit()
 
-       
+    
+    return redirect("/")
+
 
 
    

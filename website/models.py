@@ -17,6 +17,11 @@ class Biblio(db.Model):
     categorie=db.Column(db.String(80))
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
     
+class Preferences(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    categorie=db.Column(db.String(80))
+    langue=db.Column(db.String(80))
+    user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
        
 class User(db.Model,UserMixin):
     id=db.Column(db.Integer,primary_key=True)
@@ -27,3 +32,4 @@ class User(db.Model,UserMixin):
     password=db.Column(db.String(150))
     notes=db.relationship('Note')
     biblios=db.relationship('Biblio')
+    preferences=db.relationship('Preferences')

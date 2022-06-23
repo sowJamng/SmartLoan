@@ -118,7 +118,7 @@ def generateUser(data):
  
 def main_script():
   emprunt=import_data(814000)
-  
+  #emprunt=generateUser(emprunt)
   emprunt=generate_data(emprunt)
   emprunt=clustering(emprunt)
   display(emprunt)
