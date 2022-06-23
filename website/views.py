@@ -41,6 +41,8 @@ def predict():
         return 'The URL /predict is accessed directly. Go to the main page firstly'
 
     if request.method == 'POST':
+    
+
         input_val = request.form
 
         if input_val != None:

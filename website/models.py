@@ -15,7 +15,6 @@ class Biblio(db.Model):
     note=db.Column(db.Integer)
     titre=db.Column(db.String(100))
     categorie=db.Column(db.String(80))
-   
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
     
        
