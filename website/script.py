@@ -56,6 +56,10 @@ def generate_data(donnees):
     donnees=pd.concat([nombprt])
     print(donnees.shape)
     
+
+
+    for row in range(len(donnees)):
+      donnees['note']=np.random.randint(0,5, size=len(donnees))    
     return(donnees)
 
 
@@ -117,6 +121,8 @@ def generateUser(data):
    return data  
  
 def main_script():
+
+
   emprunt=import_data(814000)
   #emprunt=generateUser(emprunt)
   emprunt=generate_data(emprunt)

@@ -14,13 +14,13 @@
   <body>
 
     <div class="prediction">
-      <div class="top-heading">
+      <!-- <div class="top-heading">
         <b>
 
           {{ result_value}}
 
         </b>
-      </div>
+      </div> -->
       <br> <br>
 
 
@@ -35,6 +35,7 @@
             <th scope="col">Date</th>
             <th scope="col">Nombre de fois emprunté</th>
             <th scope="col">Catégorie</th>
+            <th scope="col">Note</th>
           </tr>
         </thead>
         <tbody>
@@ -46,6 +47,7 @@
             <td>{{livres.date}}</td>
             <td>{{livres.nombre_de_pret_total}}</td>
             <td>{{livres.categorie_statistique_1}}</td>
+            <td>{{livres.note}}</td>
         
           </tr>
           {%endfor %}

@@ -16,6 +16,7 @@ views=Blueprint('views',__name__)
 @views.route('/',methods=['GET', 'POST'])
 @login_required
 def home():
+    
       
        return render_template('home.html',user=current_user)
 
@@ -94,23 +95,24 @@ def predict():
 
         
         clusters = pd.read_json('D:/Users/msellami2/Desktop/Projet M2/SmartLoan/dta_Biblio.json')
-        df = pd.DataFrame(clusters,columns=['langue','titre','date','nombre_de_pret_total','categorie_statistique_1','cluster'])
+        df = pd.DataFrame(clusters,columns=['langue','titre','date','nombre_de_pret_total','categorie_statistique_1','cluster','note'])
         
         class livre: 
-            def __init__(self, langue, titre,date,nombre_de_pret_total,categorie_statistique_1,cluster): 
+            def __init__(self, langue, titre,date,nombre_de_pret_total,categorie_statistique_1,cluster,note): 
                self.langue = langue 
                self.titre = titre
                self.date = date
                self.nombre_de_pret_total = nombre_de_pret_total
                self.categorie_statistique_1 = categorie_statistique_1
                self.cluster = cluster
+               self.note=note
         dataFrameFinal=[]
         for index,row in df.iterrows():
           
             if(row['cluster']==index_min):
                #print(row['cluster'])
                print(index)
-               dataFrameFinal.append( livre(row['langue'] ,row['titre'] ,row['date'],row['nombre_de_pret_total'] ,row['categorie_statistique_1'] ,row['cluster']    ))
+               dataFrameFinal.append( livre(row['langue'] ,row['titre'] ,row['date'],row['nombre_de_pret_total'] ,row['categorie_statistique_1'] ,row['cluster'] ,row['note']    ))
                #print(dataFrameFinal)
             #    print(row[cluster])    
        
@@ -121,7 +123,7 @@ def predict():
             print(i)  
         
 
-        flash('Vous faites partie du cluster {index_min}',category='success')
+        flash(f'Vous faites partie du cluster {index_min}',category='success')
 
         return render_template(
             'predict.html',user=current_user,datafr=dataFrameFinal, result_value=f'Segment = #{index_min}'
