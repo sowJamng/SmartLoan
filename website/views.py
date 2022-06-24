@@ -6,6 +6,7 @@ from . import db
 from .script import *
 from scipy.spatial import distance
 from sqlalchemy import create_engine, Column, Integer, String, text
+import json
 
 
 engine = create_engine('sqlite://', echo=False)
@@ -165,7 +166,7 @@ def dashboard():
     qryANG = Livre.query.filter_by(langue="anglais")
     frCount = qryFR.count()
     engCount = qryANG.count()
-
+    
     print ("Nombre anglais ", engCount , " nombre fraçais " ,frCount)
     
         
@@ -175,6 +176,6 @@ def dashboard():
 
     
       
-    return render_template('dashboard.html',user=current_user,frCount=frCount,engCount=engCount)
+    return render_template('dashboard.html',user=current_user,frCount=json.dumps(frCount),engCount=json.dumps(engCount))
 
    
