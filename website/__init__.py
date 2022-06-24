@@ -42,6 +42,8 @@ def create_databases(app):
         from .models import Cluster
         from .models import User
        # if db.session.query(Cluster.query.filter(Cluster.id == 1).exists()).scalar()==False:
+        u= User.query.all()
+        c=Cluster.query.all()
         cluster0=Cluster(numcluster="0")
         cluster1=Cluster(numcluster="1")
         cluster2=Cluster(numcluster="2")

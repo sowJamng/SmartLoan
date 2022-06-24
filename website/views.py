@@ -193,8 +193,9 @@ def cluster():
     df = pd.DataFrame(users,columns=['Prenom','Nom','Email','cluster'])
     dataFrameUsers=[]
     
-    for 10,row in df.iterrows():
-        dataFrameUsers.append(row['Prenom'],row['Nom'],row['Email'],row['cluster'])
+    for index,row in df.iterrows():
+        if (index<12):
+          dataFrameUsers.append(row['Prenom'],row['Nom'],row['Email'],row['cluster'])
     return render_template(
             'users_cluster.html',user=current_user,data= dataFrameUsers
             )
