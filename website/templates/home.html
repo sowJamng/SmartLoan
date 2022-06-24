@@ -26,14 +26,67 @@
   <tbody>
     {%for pref in user.preferences%}
     <tr>
+
+
+      {% if pref.categorie == '0' %}
+      <td> D002 Informatique et ordinateurs  </td>
+      {% endif %}
+
+      {% if pref.categorie == '2' %}
+      <td> D103 Psychologie  </td>
+      {% endif %}
+
+      {% if pref.categorie == '13' %}
+      <td> D901 Histoire generale  </td>
+      {% endif %}
+
+      {% if pref.categorie == '9' %}
+      <td> D711 Sport </td>
+      {% endif %}
+
+
+      {% if pref.categorie == '5' %}
+      <td> D602 Medecine et sexualite </td>
+      {% endif %}
+
+      {% if pref.categorie == '6' %}
+      <td> D801 Etudes litteraires, revues litteraires </td>
+      {% endif %}
+
+
+      {% if pref.categorie == '7' %}
+      <td> D607 Gestion  </td>
+      {% endif %}
+
+      {% if pref.categorie == '8' %}
+      <td> D708 Cinema  </td>
+      {% endif %}
       
-      <td>{{pref.categorie}}</td>
+      {% if pref.categorie == '11' %}
+      <td> D910 Geographie  </td>
+      {% endif %}
+
+      {% if pref.categorie == '1' %}
+      <td>D101 Philosophie</td>
+      {% endif %}
+
+      {% if pref.categorie == '3' %}
+      <td> D303 Economie sauf metiers, commerce  </td>
+      {% endif %}
+
+      {% if pref.categorie == '4' %}
+      <td>D305 Droit, administration, questions sociales</td>
+      {% endif %}
+
+      
+      {% if pref.categorie == '10' %}
+      <td>D502 Math., astronomie, physique, chimie</td>
+      {% endif %}
+   
+
+
       <td>{{pref.langue}}</td>
-      <td><a href="/delete/{{pref.id}}" type="submit"  class="btn btn-danger">
-      
-
-
-        Supprimer</a></td>
+      <td><a href="/delete/{{pref.id}}" type="submit"  class="btn btn-danger">Supprimer</a></td>
 
 
     </tr>
