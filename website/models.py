@@ -7,6 +7,12 @@ class Note(db.Model):
     data=db.Column(db.String(10000))
     date=db.Column(db.DateTime(timezone=True), default=func.now() )
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
+
+
+class Cluster(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    numcluster=db.Column(db.String(10000))
+    user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
    
     
 class Biblio(db.Model):
@@ -33,3 +39,4 @@ class User(db.Model,UserMixin):
     notes=db.relationship('Note')
     biblios=db.relationship('Biblio')
     preferences=db.relationship('Preferences')
+    clusters=db.relationship('Cluster')

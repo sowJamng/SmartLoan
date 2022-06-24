@@ -61,7 +61,7 @@ def predict():
         new_pref=Preferences(categorie=categorie,langue=langue,user_id=current_user.id)
         db.session.add(new_pref)
         db.session.commit()
-        flash('Biblio ajoutée avec succés',category='success')
+        flash('Preferences ajoutée avec succés',category='success')
 
         input_val = request.form
 
