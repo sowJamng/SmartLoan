@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block title %}Changed{% endblock  %}
+{% block  content %}
+
+
+
+  <style>
+    body {
+      font-family: 'IBM Plex Sans Thai', serif;
+      font-size: 14px;
+    }
+  </style>
+
+  <body>
+
+
+
+
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            
+            <th scope="col">Langue</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Catégorie</th>
+            <th scope="col">Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for livres in livre%}
+          <tr>
+            
+            <td>{{livres.langue}}</td>
+            <td>{{livres.titre}}</td>
+            <td>{{livres.note}}</td>
+            <td>{{livres.categorie}}</td>
+        
+          </tr>
+          {%endfor %}
+        </tbody>
+      </table>
+      
+    </div>
+
+  </body>
+
+  {% endblock %}

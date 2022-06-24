@@ -146,14 +146,35 @@ def deleteById(id):
     return redirect("/")
 
 
+@views.route('/livre',methods=['GET', 'POST'])
+@login_required
+def livre():
+
+    livre = Livre.query.order_by(Livre.note.desc()).all()
+    
+
+    
+      
+    return render_template('livres.html',user=current_user,livre=livre)
+
 
 @views.route('/dashboard',methods=['GET', 'POST'])
 @login_required
 def dashboard():
-   
+    qryFR = Livre.query.filter_by(langue="français")
+    qryANG = Livre.query.filter_by(langue="anglais")
+    frCount = qryFR.count()
+    engCount = qryANG.count()
+
+    print ("Nombre anglais ", engCount , " nombre fraçais " ,frCount)
+    
+        
+       
+
+
 
     
       
-    return render_template('dashboard.html',user=current_user)
+    return render_template('dashboard.html',user=current_user,frCount=frCount,engCount=engCount)
 
    
