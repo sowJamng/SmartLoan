@@ -34,36 +34,8 @@ Clone project on your remote machine (needs to have docker daemon installed), th
 
 # Diagramme De Sequence
 
-<div hidden>
 
-```
-@startuml predict
-    
-    participant ": Front" as ft
-    participant ": Back" as bk
-    participant ": PredictController" as rc
-
-    activate ft
-    ft -> bk : POST /predict
-    activate bk
-    bk -> rc : predict(langue,category)
-    create "Predict.predictService: PredictService" as rs
-    rc -> rs : PredictService(PredictDao)
-    activate rs
-    rc -> rs : predict(langue, category)
-    rs --> rc
-    deactivate rs
-    rc --> bk
-    deactivate rc
-    bk --> ft
-    deactivate bk
-
-
-@enduml
-```
-</div>
-
-![](predict.svg)
+![](doc/predict.svg)
 # Auteurs
 * **Maodo laba SOW** - [Github](https://github.com/sowJamng)   -   [LinkedIn](https://fr.linkedin.com/in/maodo-laba-sow-668244184/)
 * **Mehdi Sellami**  - [Github](https://github.com/mehdisellami/) - [LinkedIn](https://fr.linkedin.com/in/mehdisellami/)
