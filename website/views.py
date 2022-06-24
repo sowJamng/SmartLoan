@@ -187,4 +187,14 @@ def dashboard():
      
     return render_template('dashboard.html',user=current_user,frCount=json.dumps(frCount),engCount=json.dumps(engCount))
 
-   
+@views.route('/clusters',methods=['GET', 'POST'])
+def cluster():   
+    users = pd.read_json('C:/Miage/ML/projet/SmartLoan/biblio_user.json')
+    df = pd.DataFrame(users,columns=['Prenom','Nom','Email','cluster'])
+    dataFrameUsers=[]
+    
+    for 10,row in df.iterrows():
+        dataFrameUsers.append(row['Prenom'],row['Nom'],row['Email'],row['cluster'])
+    return render_template(
+            'users_cluster.html',user=current_user,data= dataFrameUsers
+            )

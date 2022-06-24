@@ -1,4 +1,4 @@
-from  . import db
+from .__init__ import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
@@ -11,8 +11,8 @@ class Note(db.Model):
 
 class Cluster(db.Model):
     id=db.Column(db.Integer, primary_key=True)
-    numcluster=db.Column(db.String(10000))
-    user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
+    numcluster=db.Column(db.String(10))
+    #user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
    
     
 class Biblio(db.Model):

@@ -1,5 +1,6 @@
 from flask import Blueprint,render_template,flash,request,redirect,url_for
 from .models import User
+from .models import Cluster
 from werkzeug.security import generate_password_hash,check_password_hash
 from . import db
 from flask_login import login_user,login_required,logout_user,current_user
@@ -52,7 +53,8 @@ def sign_up():
         elif pass1!=pass2:
             flash('Le mot de posse ne correepond pas',category='error')
         else:
-            new_user=User(email=email,prenom=prenom,password=generate_password_hash(pass1,method='sha256'))
+            cluster=Cluster.query.filter_by(cluster=1).first()
+            new_user=User(email=email,prenom=prenom,password=generate_password_hash(pass1,method='sha256'),clusters=cluster)
             db.session.add(new_user)
             db.session.commit()
             #login_user(user,remember=True)

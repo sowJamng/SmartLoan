@@ -11,10 +11,6 @@ from sklearn import preprocessing
 import json
 from sklearn.preprocessing import StandardScaler
 import pickle
-from .models import User
-from .models import Cluster
-from . import db
-from werkzeug.security import generate_password_hash,check_password_hashr
 
 def display(donnees):
    print("Dimensions des données : " + str(donnees.shape))
@@ -98,16 +94,7 @@ def clustering(donnees):
    # check the number of clusters
    donnees['cluster'].unique()
    
-   if Cluster.query.filter_by(id=1).first()==False:
-      cluster0=Cluster(id=1,cluster=0)
-      cluster1=Cluster(id=1,cluster=0)
-      cluster2=Cluster(id=1,cluster=0)
-      cluster3=Cluster(id=1,cluster=0)
-      db.session.add(cluster0)
-      db.session.add(cluster1)
-      db.session.add(cluster2)
-      db.session.add(cluster3)
-      db.session.commit()
+
    # change the data type
   # donnees = donnees['cluster'].astype(object)
    # serializing our model to a file called model.pkl
@@ -146,11 +133,7 @@ def main_script():
   dta=generateUser(emprunt)
   dta.to_json(path_or_buf='biblio_user.json',orient="records")
   display(emprunt)
-  for row in range(0,1000):
-    if User.query.filter_by(email=dta['Email'][row]).first()==False:
-        new_user=User(email=dta['Email'][row],prenom= dta['Prenom'][row],password=generate_password_hash(dta['Password'][row],method='sha256'))
-        db.session.add(new_user)
-        db.session.commit()
+  
   return emprunt
 
 dataBiblio=main_script()
