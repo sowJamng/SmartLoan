@@ -12,6 +12,7 @@ import json
 from sklearn.preprocessing import StandardScaler
 import pickle
 from .models import User
+from .models import Cluster
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hashr
 
@@ -59,6 +60,10 @@ def generate_data(donnees):
     donnees=pd.concat([nombprt])
     print(donnees.shape)
     
+
+
+    for row in range(len(donnees)):
+      donnees['note']=np.random.randint(0,5, size=len(donnees))    
     return(donnees)
 
 
@@ -93,7 +98,7 @@ def clustering(donnees):
    # check the number of clusters
    donnees['cluster'].unique()
    
-   if Cluster.query.filter_by(cluster=0).first()==False:
+   if Cluster.query.filter_by(id=1).first()==False:
       cluster0=Cluster(id=1,cluster=0)
       cluster1=Cluster(id=1,cluster=0)
       cluster2=Cluster(id=1,cluster=0)
@@ -132,8 +137,10 @@ def generateUser(data):
    return data  
  
 def main_script():
+
+
   emprunt=import_data(814000)
-  
+  #emprunt=generateUser(emprunt)
   emprunt=generate_data(emprunt)
   emprunt=clustering(emprunt)
   dta=generateUser(emprunt)

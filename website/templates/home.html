@@ -3,7 +3,7 @@
 
 
 
-<h3 align="center">Mes preferences : {{user.biblios|length}}</h3>
+<h3 align="center">Mes preferences : {{user.preferences|length}}</h3>
 <!-- <ul class="list-group list-group-flush" id="biblio">
     {%for biblio in user.biblios%}
     <li class="list-group-item">{{biblio.titre}}</li>
@@ -17,18 +17,25 @@
   <thead>
     <tr>
       
-      <th scope="col">Titre</th>
       <th scope="col">Catégorie</th>
-      <th scope="col">Note</th>
+      <th scope="col">Langue</th>
+      <th scope="col">Action</th>
+
     </tr>
   </thead>
   <tbody>
-    {%for biblio in user.biblios%}
+    {%for pref in user.preferences%}
     <tr>
       
-      <td>{{biblio.titre}}</td>
-      <td>{{biblio.categorie}}</td>
-      <td>{{biblio.note}}</td>
+      <td>{{pref.categorie}}</td>
+      <td>{{pref.langue}}</td>
+      <td><a href="/delete/{{pref.id}}" type="submit"  class="btn btn-danger">
+      
+
+
+        Supprimer</a></td>
+
+
     </tr>
     {%endfor %}
   </tbody>

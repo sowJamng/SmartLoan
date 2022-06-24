@@ -1,0 +1,86 @@
+{% extends "base.html" %} {% block title %}SmartLoan{% endblock  %}
+{% block  content %}
+
+<br> <br>
+
+<h3> Dashboard</h3>
+<br> <br>
+
+
+
+
+
+  <div class="col-xs-10 col-sm-6 col-md-6">
+    <div class="card card-style mb-2">
+        <div class="card-body">
+            <div class="chart-container" style="position: relative;">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <script>
+    let frCount = JSON.parse({{frCount | tojson}})
+    let engCount = JSON.parse({{engCount | tojson}})
+    const labels = [
+      'Français',
+      'Anglais',
+      
+    ];
+  
+    const data = {
+      labels: labels,
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: ['#5DA5DA ', '#FAA43A', '#60BD68',
+                        '#B276B2', '#E16851', '#FB8267'],
+        data: [frCount,engCount],
+      }]
+    };
+  
+    const config = {
+      type: 'pie',
+      data: data,
+      options: {}
+    };
+  </script>
+
+
+<script>
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+  </script>
+   
+
+
+   <!-- <div class="col-xs-10 col-sm-6 col-md-6">
+    <div class="card card-style mb-2">
+        <div class="card-body">
+            <div class="chart-container" style="position: relative;">
+                <canvas id="myChartLine"></canvas>
+            </div>
+        </div>
+    </div>
+</div>  
+
+<script>
+const configLines = {
+    type: 'line',
+    data: data,
+    options: {}
+  };
+</script>
+
+
+<script>
+    const myChartLine = new Chart(
+      document.getElementById('myChartLine'),
+      configLines
+    );
+  </script> -->
+
+
+{% endblock %}

@@ -7,6 +7,12 @@ class Note(db.Model):
     data=db.Column(db.String(10000))
     date=db.Column(db.DateTime(timezone=True), default=func.now() )
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
+
+
+class Cluster(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    numcluster=db.Column(db.String(10000))
+    user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
    
     
 class Biblio(db.Model):
@@ -15,8 +21,22 @@ class Biblio(db.Model):
     note=db.Column(db.Integer)
     titre=db.Column(db.String(100))
     categorie=db.Column(db.String(80))
-    user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
+    langue=db.Column(db.String(80))
+
+class Livre(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    type=db.Column(db.String(80))
+    note=db.Column(db.Integer)
+    titre=db.Column(db.String(100))
+    categorie=db.Column(db.String(80))
+    langue=db.Column(db.String(80))
+
     
+class Preferences(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    categorie=db.Column(db.String(80))
+    langue=db.Column(db.String(80))
+    user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
        
 class User(db.Model,UserMixin):
     id=db.Column(db.Integer,primary_key=True)
@@ -26,4 +46,5 @@ class User(db.Model,UserMixin):
     profil=db.Column(db.String(50))
     password=db.Column(db.String(150))
     notes=db.relationship('Note')
-    biblios=db.relationship('Biblio')
+    preferences=db.relationship('Preferences')
+    clusters=db.relationship('Cluster')
