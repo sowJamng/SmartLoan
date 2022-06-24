@@ -182,10 +182,18 @@ def dashboard():
     qryANG = Livre.query.filter_by(langue="anglais")
     frCount = qryFR.count()
     engCount = qryANG.count()
-    
+    totalLivres = engCount+frCount
     print ("Nombre anglais ", engCount , " nombre fraçais " ,frCount)
-     
-    return render_template('dashboard.html',user=current_user,frCount=json.dumps(frCount),engCount=json.dumps(engCount))
+    
+        
+       
+
+
+
+    
+      
+    return render_template('dashboard.html',user=current_user,frCount=json.dumps(frCount),engCount=json.dumps(engCount), totalLivres=json.dumps(totalLivres))
+
 
 @views.route('/clusters',methods=['GET', 'POST'])
 def cluster():   
