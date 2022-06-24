@@ -1,57 +1,100 @@
 {% extends "base.html" %} {% block title %}Changed{% endblock  %}
 {% block  content %}
 
-<form method="post">
-    <span class="border"></span>
-    <div class="row"> 
-      <label class="input-group-text" for="inputGroupSelect01" name="titre">Titre:</label>
-      <input type="text" name="titre" id="titre" placeholder=""> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-      <label class="input-group-text" for="inputGroupSelect01">Type:</label>
-      <select name="type" class="form-select form-select-sm" aria-label=".form-select-sm example">
-        <option value="francais">Livre</option>
-        <option value="anglais">DVD</option> 
-      </select>   &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-     <label class="input-group-text" for="inputGroupSelect01" >Langue :</label>
-        <select name="langue" class="form-select form-select-sm" aria-label=".form-select-sm example">
-          <option value="francais">Francais</option>
-          <option value="anglais">Anglais</option> 
-       </select> &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-    <label class="input-group-text" for="inputGroupSelect01" >Catégorie:</label> 
-        <select name="categorie" class="form-select form-select-sm" aria-label=".form-select-sm example">
-          <option value="literaturefrancaise">D103 Psychologie</option>
-          <option value="literatureetrangere">CFRA Cinema francais</option>
-          <option value="literatureetrangere">LFRA Litterature francaise</option>
-          <option value="literatureetrangere">D506 Botanique</option>
-          <option value="literatureetrangere">Littérature étrangère</option>
-          <option value="literatureetrangere">D506 Botanique</option>
-        </select>
-        &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
-      <label class="input-group-text" for="inputGroupSelect01">Note :</label>
-        <select name="note" class="form-select" aria-label="la Note">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-     
-      </div>
-    </br>
-    <div align="center">
-      <button type="submit"  align="center" class="btn btn-primary">Valider</button>
-    </div>
-    </form>
-<br/>
-    <h1 align="center">Ma Biblio</h1>
-<ul class="list-group list-group-flush" id="biblio">
-    {%for biblio in user.biblio%}
+
+
+<h3 align="center">Mes preferences : {{user.preferences|length}}</h3>
+<!-- <ul class="list-group list-group-flush" id="biblio">
+    {%for biblio in user.biblios%}
     <li class="list-group-item">{{biblio.titre}}</li>
     <li class="list-group-item">{{biblio.categorie}}</li>
     <li class="list-group-item">{{biblio.note}}</li>
    
     {%endfor %}
-</ul>
-<ul class="list-group list-group-flush" id="biblio">
+</ul> -->
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      
+      <th scope="col">Catégorie</th>
+      <th scope="col">Langue</th>
+      <th scope="col">Action</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {%for pref in user.preferences%}
+    <tr>
+
+
+      {% if pref.categorie == '0' %}
+      <td> D002 Informatique et ordinateurs  </td>
+      {% endif %}
+
+      {% if pref.categorie == '2' %}
+      <td> D103 Psychologie  </td>
+      {% endif %}
+
+      {% if pref.categorie == '13' %}
+      <td> D901 Histoire generale  </td>
+      {% endif %}
+
+      {% if pref.categorie == '9' %}
+      <td> D711 Sport </td>
+      {% endif %}
+
+
+      {% if pref.categorie == '5' %}
+      <td> D602 Medecine et sexualite </td>
+      {% endif %}
+
+      {% if pref.categorie == '6' %}
+      <td> D801 Etudes litteraires, revues litteraires </td>
+      {% endif %}
+
+
+      {% if pref.categorie == '7' %}
+      <td> D607 Gestion  </td>
+      {% endif %}
+
+      {% if pref.categorie == '8' %}
+      <td> D708 Cinema  </td>
+      {% endif %}
+      
+      {% if pref.categorie == '11' %}
+      <td> D910 Geographie  </td>
+      {% endif %}
+
+      {% if pref.categorie == '1' %}
+      <td>D101 Philosophie</td>
+      {% endif %}
+
+      {% if pref.categorie == '3' %}
+      <td> D303 Economie sauf metiers, commerce  </td>
+      {% endif %}
+
+      {% if pref.categorie == '4' %}
+      <td>D305 Droit, administration, questions sociales</td>
+      {% endif %}
+
+      
+      {% if pref.categorie == '10' %}
+      <td>D502 Math., astronomie, physique, chimie</td>
+      {% endif %}
+   
+
+
+      <td>{{pref.langue}}</td>
+      <td><a href="/delete/{{pref.id}}" type="submit"  class="btn btn-danger">Supprimer</a></td>
+
+
+    </tr>
+    {%endfor %}
+  </tbody>
+</table>
+
+<!-- <ul class="list-group list-group-flush" id="biblio">
   {%for biblio in biblios%}
   {%if biblio.profile==user.profile %}
   <li class="list-group-item">{{biblio.titre}}</li>
@@ -59,5 +102,7 @@
   <li class="list-group-item">{{biblio.note}}</li>
    {%endif%}
   {%endfor %}
-</ul>
+</ul> -->
+
+
 {% endblock %}

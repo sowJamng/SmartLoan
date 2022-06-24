@@ -1,0 +1,331 @@
+{% extends "base.html" %} {% block title %}SmartLoan{% endblock  %}
+{% block  content %}
+
+
+
+
+
+
+<style>
+  .example-container {
+    
+}
+
+
+   
+.container {
+}
+
+.side {
+    position: initial;
+    left: 0px;
+    margin-right:0px !important;
+    top:60px;
+    
+}
+
+mat-drawer{
+    padding-left: 0px;
+}
+
+/* .Chart-Fist{
+    width: 200px;
+    height: 200px;
+    background-color: rgba(255,255,255,0.5);
+} */
+
+
+
+.row{
+}
+
+mat-drawer-content{
+    padding-left: 42px;
+    
+}
+.card-counter{
+    box-shadow: 2px 2px 10px #DADADA;
+    margin: 5px;
+    padding: 20px 10px;
+    background-color: #fff;
+    height: 100px;
+    border-radius: 5px;
+    transition: .3s linear all;
+  }
+
+  .card-counter:hover{
+    box-shadow: 4px 4px 20px #DADADA;
+    transition: .3s linear all;
+  }
+
+  .card-counter.primary{
+    background-color: #007bff;
+    color: #FFF;
+  }
+
+  .card-counter.danger{
+    background-color: #ef5350;
+    color: #FFF;
+  }  
+
+  .card-counter.success{
+    background-color: #66bb6a;
+    color: #FFF;
+  }  
+
+  .card-counter.info{
+    background-color: #26c6da;
+    color: #FFF;
+  }  
+
+  .card-counter i{
+    font-size: 5em;
+    opacity: 0.2;
+  }
+
+  .card-counter .count-numbers{
+    position: absolute;
+    right: 35px;
+    top: 20px;
+    font-size: 32px;
+    transition: --num 1s;
+    display: block;
+  }
+
+  .card-counter .count-name{
+    position: absolute;
+    right: 35px;
+    top: 65px;
+    font-style: italic;
+    text-transform: capitalize;
+    opacity: 0.5;
+    display: block;
+    font-size: 18px;
+  }
+
+  .row.body{
+      padding-top: 60px;
+  }
+  .row.userLogin{
+      padding-top: 10px;
+  }
+  .row.cards{
+    padding-right: 10px;
+}
+
+.table-bordered{
+  margin-left:0px;
+  
+}
+
+.col-8.tableScroll{
+  height: 500px;
+  overflow: auto;
+}
+
+.list-group-item.red{
+  background:#FF9999
+}
+.list-group-item.green{
+  background:#C4F9A7
+}
+
+.list-group.list-group-flush.liscroll{
+  overflow: auto;
+  height: 485.430px;
+}
+
+.card.liscroll{
+  overflow: auto;
+  height: 485.430px;
+}
+
+.celluleFormat{
+	white-space: pre-wrap !important;
+	vertical-align: top;
+}
+
+</style>
+
+<br>
+
+<div class="row cards">
+  <!-- <router-outlet></router-outlet> -->
+  <div class="col-md-4">
+    <div class="card-counter primary">
+      <i class="fa fa-code-fork" ></i>
+      <span class="count-numbers">11</span>
+      <span class="count-name">Categories de livres</span>
+    </div>
+    </div>
+
+    <div class="col-md-4">
+    <div class="card-counter success">
+      <i class="fa fa-database" (click)='redirectToTableRessourceInterManager()'> </i>
+      <span class="count-numbers">{{frCount}}</span>
+      <span class="count-name">Livres en Français</span>
+    </div>
+    </div>
+  
+    <div class="col-md-4">
+    <div class="card-counter danger">
+      <i class="fa fa-exclamation-circle" (click)='redirectToListRessource()'></i>
+      <span class="count-numbers"> {{totalLivres}}</span>
+      <span class="count-name">Livres totals</span>
+    </div>
+    </div>
+  
+  
+  
+    <!-- <div class="col-md-3">
+    <div class="card-counter info">
+      <i class="fa fa-users"></i>
+      <span class="count-numbers">{{nbRessource}}</span>
+      <span class="count-name">Nombre de Ressource</span>
+    </div>
+    </div> -->
+  
+
+  </div>
+<br>
+
+  <!-- <div class="col-xs-10 col-sm-6 col-md-6">
+    <div class="card card-style mb-2">
+      
+        
+    </div>
+</div> -->
+
+
+<div class="row cards">
+
+  <div class="col-md-6">
+    <div class="card-body">
+      <div class="chart-container" style="position: relative;">
+          <canvas id="myChart"></canvas>
+      </div>
+  </div>
+
+  </div>
+
+  
+  <div class="col-md-6">
+    <div class="card-body">
+      <div class="chart-container" style="position: relative;">
+          <canvas id="myChart2"></canvas>
+      </div>
+  </div>
+    
+  </div>
+
+</div>
+
+  <script>
+    let frCount = JSON.parse({{frCount | tojson}})
+    let engCount = JSON.parse({{engCount | tojson}})
+    const labels = [
+      'Français',
+      'Anglais',
+      
+    ];
+  
+    const data = {
+      labels: labels,
+      datasets: [{
+        label: 'Repartitions des langues de livres',
+        backgroundColor: ['#5DA5DA ', '#FAA43A', '#60BD68',
+                        '#B276B2', '#E16851', '#FB8267'],
+        data: [frCount,engCount],
+      }]
+    };
+  
+    const config = {
+      type: 'pie',
+      data: data,
+      options: {}
+    };
+  </script>
+
+  <!-- Bar Chart  -->
+
+  <script>
+  
+    const labelsBar = [
+      'Français',
+      'Anglais',
+      
+    ];
+  
+    const dataBar = {
+      labels: labels,
+      datasets: [{
+        label: 'Repartitions des langues de livres',
+        backgroundColor: [  'rgba(255, 99, 132, 0.2)',
+      'rgba(255, 159, 64, 0.2)',
+      'rgba(255, 205, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      'rgba(201, 203, 207, 0.2)'],
+      botrderColor: [    'rgb(255, 99, 132)',
+      'rgb(255, 159, 64)',
+      'rgb(255, 205, 86)',
+      'rgb(75, 192, 192)',
+      'rgb(54, 162, 235)',
+      'rgb(153, 102, 255)',
+      'rgb(201, 203, 207)'],
+      borderWidth:1,
+        data: [frCount,engCount],
+      }]
+    };
+  
+    const configBar = {
+      type: 'bar',
+      data: data,
+      options: {}
+    };
+  </script>
+
+
+<script>
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+
+    const myChart2 = new Chart(
+      document.getElementById('myChart2'),
+      configBar
+    );
+  </script>
+   
+
+
+   <!-- <div class="col-xs-10 col-sm-6 col-md-6">
+    <div class="card card-style mb-2">
+        <div class="card-body">
+            <div class="chart-container" style="position: relative;">
+                <canvas id="myChartLine"></canvas>
+            </div>
+        </div>
+    </div>
+</div>  
+
+<script>
+const configLines = {
+    type: 'line',
+    data: data,
+    options: {}
+  };
+</script>
+
+
+<script>
+    const myChartLine = new Chart(
+      document.getElementById('myChartLine'),
+      configLines
+    );
+  </script> -->
+
+
+{% endblock %}

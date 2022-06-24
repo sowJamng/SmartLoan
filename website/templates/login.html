@@ -1,17 +1,32 @@
 {% extends "base.html" %} {% block title %}Login{% endblock %}
 {% block  content %}
-<form method="POST" class="col g-3">
-    <h3 align="center">Se connceter</h3>
-    <div class="form-group">
-        <label for="email"> Adresse email</label>
-        <input type="email" class="form-control" placeholder="email" id="email" name="email" />
-    </div>
+<head>
+<link rel="stylesheet" href='/static/login.css' />
+</head>
 
-    <div class="form-group">
-        <label for="nom"> Mot de passe</label>
-        <input type="password" class="form-control" placeholder="mot de passe" id="password" name="password" />
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+  
+      <div class="fadeIn first"><img src="{{url_for('static', filename='logo.png')}}" align="middle" /></div>
+      <form method="POST">
+        <div class="form-group">
+          <label for="username">Identifiant</label>
+          <input type="email" class="form-control" placeholder="Tappez votre email" id="email" name="email"  />
         </div>
-    <br/>
-    <button type="submit" class="btn btn-primary">Se connecter</button>
-</form>
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" placeholder="Tappez votre mot de passe" class="form-control" name="password"  />
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" type="submit" >Login</button>
+        </div>
+        <div id="formFooter"><a class="underlineHover" href="/sign-up">Pas inscri ?</a></div>
+
+      </form>
+    <br>
+
+    </div>
+  </div>
+
 {% endblock %}

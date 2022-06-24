@@ -6,7 +6,10 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome" crossorigin="anonymous">
-         <title>{% block title %} Home {% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <title>{% block title %} Home {% endblock %}</title>
         </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -18,12 +21,22 @@
             <div class="navbar-nav">
                  {% if user.is_authenticated %}
             
-                <a class="nav-item nav-link" id="login"href="/logout">Se deconnecter</a>
-                <a class="nav-item nav-link" id="login"href="/">Home</a>
+                <a class="nav-item nav-link" id="login"href="/">Mes preferences</a>
+                <a class="nav-item nav-link" id="login"href="/index">Biblio</a>
+                <a class="nav-item nav-link" id="login"href="/emprunt">Ajout préférences</a>
+                <a class="nav-item nav-link" id="login"href="/dashboard">Dashboard</a>
+                <a class="nav-item nav-link" id="login"href="/livre">Les Livres</a>
+                <a class="nav-item nav-link" id="users"href="/clusters"> utilisateur|cluster </a>
+                <div style="text-align: right;">
+
+                <a class="nav-item nav-link "  id="login"href="/logout">Se deconnecter</a>
+ 
+                </div>
+
                 {% else %}
                 <a class="nav-item nav-link" id="login"href="/index">Home</a>
-                <a class="nav-item nav-link" id="login"href="/login">Se conneceter</a>
-                <a class="nav-item nav-link" id="login"href="/sign-up">Creer Compte</a>
+                <a class="nav-item nav-link " id="login"href="/login">Se conneceter</a>
+                <a class="nav-item nav-link"  id="login"href="/sign-up">Creer Compte</a>
                 {% endif %}
             </div>
         </div>
@@ -65,6 +78,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
     <script type="text/javascript" src="{{url_for('static',filename='index/js')}}"></script>
-    </body
+    </body>
 
  </html>   
