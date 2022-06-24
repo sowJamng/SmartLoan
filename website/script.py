@@ -11,6 +11,9 @@ from sklearn import preprocessing
 import json
 from sklearn.preprocessing import StandardScaler
 import pickle
+from .models import User
+from . import db
+from werkzeug.security import generate_password_hash,check_password_hashr
 
 def display(donnees):
    print("Dimensions des données : " + str(donnees.shape))
@@ -18,7 +21,7 @@ def display(donnees):
 
 def import_data(l):
   cols = [x for x in range (37)]
-  donnees = pd.read_csv('D:/Users/msellami2/Biblio.csv', usecols=cols,sep=";" , low_memory=False)
+  donnees = pd.read_csv('C:/Miage/ML/projet/Biblio.csv', usecols=cols,sep=";" , low_memory=False)
   donnees.drop(['isbn','issn','ean','edition','ndeg','co_auteur_nom','co_auteur_prenom' ,'dates', 'auteur_secondaire_nom', 'auteur_secondaire_prenom',
   'auteur_secondaire_dates', 'auteur_collectivite', 'subdivision_auteur_collectivite', 'co_auteur_collectivite', 'subdivision_co_auteur_collectivite',
   'auteur_secondaire_collectivite', 'subdivision_auteur_secondaire_collectivite', 'cote_majoritaire',
@@ -89,6 +92,17 @@ def clustering(donnees):
    print(donnees.shape)
    # check the number of clusters
    donnees['cluster'].unique()
+   
+   if Cluster.query.filter_by(cluster=0).first()==False:
+      cluster0=Cluster(id=1,cluster=0)
+      cluster1=Cluster(id=1,cluster=0)
+      cluster2=Cluster(id=1,cluster=0)
+      cluster3=Cluster(id=1,cluster=0)
+      db.session.add(cluster0)
+      db.session.add(cluster1)
+      db.session.add(cluster2)
+      db.session.add(cluster3)
+      db.session.commit()
    # change the data type
   # donnees = donnees['cluster'].astype(object)
    # serializing our model to a file called model.pkl
@@ -98,22 +112,23 @@ def clustering(donnees):
 
 def generateUser(data):
    mylist = []
-   for i in range(0,400):
-     x = random.randint(1,400)
+   for i in range(0,1000):
+     x = random.randint(1,1000)
      mylist.append(x)
 
-   for row in range(5500):
+   for row in range(0,1000):
       data['Email']="email"
       data['Prenom']="prenom"
       data['Nom']="name"
       data['Password']="password"
 
-   for row in range(5500):
+   for row in range(0,1000):
       num=random.choice(mylist)
       data['Prenom'][row]="Prenom"+str(num)
       data['Nom'][row]="Nom"+str(num)
       data['Email'][row]=str(num)+"@gmail.com"
-      data['Password']="password"+str(num)
+      data['Password'][row]="password"+str(num)
+      
    return data  
  
 def main_script():
@@ -121,8 +136,14 @@ def main_script():
   
   emprunt=generate_data(emprunt)
   emprunt=clustering(emprunt)
+  dta=generateUser(emprunt)
+  dta.to_json(path_or_buf='biblio_user.json',orient="records")
   display(emprunt)
-
+  for row in range(0,1000):
+    if User.query.filter_by(email=dta['Email'][row]).first()==False:
+        new_user=User(email=dta['Email'][row],prenom= dta['Prenom'][row],password=generate_password_hash(dta['Password'][row],method='sha256'))
+        db.session.add(new_user)
+        db.session.commit()
   return emprunt
 
 dataBiblio=main_script()

@@ -9,7 +9,7 @@ from scipy.spatial import distance
 views=Blueprint('views',__name__)
 
 @views.route('/',methods=['GET', 'POST'])
-@login_required
+#@login_required
 def home():
       
        return render_template('home.html',user=current_user)
@@ -74,7 +74,7 @@ def predict():
             assigned_clusters.append(index_min)
 
         
-        clusters = pd.read_json('D:/Users/msellami2/Desktop/Projet M2/SmartLoan/dta_Biblio.json')
+        clusters = pd.read_json('C:/Miage/ML/projet/SmartLoan/dta_Biblio.json')
         df = pd.DataFrame(clusters,columns=['langue','titre','date','nombre_de_pret_total','categorie_statistique_1','cluster'])
         
         class livre: 
@@ -108,7 +108,25 @@ def predict():
             'predict.html',user=current_user,datafr=dataFrameFinal, result_value=f'Segment = #{index_min}'
             )
 
-       
+
+@views.route('/post/test', methods=['POST'])
+def receive_post():
+        headers = request.headers
+
+        auth_token = headers.get('authorization-sha256')
+        if not auth_token:
+            return 'Unauthorized', 401
+
+        data_string = request.get_data()
+        data = json.loads(data_string)
+
+        request_id = data.get('request_id')
+        payload = data.get('payload')
+
+        if request_id and payload:
+            return 'Ok', 200
+        else:
+            return 'Bad Request', 400     
 
 
    
