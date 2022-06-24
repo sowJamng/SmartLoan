@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect,render_template,request,flash
 from flask_login import login_required,current_user
 from .models import Note, Preferences
-from .models import Biblio, User
+from .models import Biblio, User,Livre
 from . import db
 from .script import *
 from scipy.spatial import distance
@@ -47,8 +47,12 @@ def emprunt():
     return render_template('emprunt.html',user=current_user,biblios=dataBiblio)
 
 
+
+
 @views.route('/predict', methods=['POST', 'GET'])
 def predict():
+    nb_Francais_Livres=0
+    nb_Anglais_Livres=0
     if request.method == 'GET':
         return 'The URL /predict is accessed directly. Go to the main page firstly'
 
@@ -108,6 +112,10 @@ def predict():
                self.note=note
         dataFrameFinal=[]
         for index,row in df.iterrows():
+            new_livre=Livre(categorie=row['categorie_statistique_1'],langue=row['langue'],note=row['note'] ,titre=row['titre'] )
+            db.session.add(new_livre)
+            db.session.commit()
+
           
             if(row['cluster']==index_min):
                #print(row['cluster'])
@@ -138,5 +146,14 @@ def deleteById(id):
     return redirect("/")
 
 
+
+@views.route('/dashboard',methods=['GET', 'POST'])
+@login_required
+def dashboard():
+   
+
+    
+      
+    return render_template('dashboard.html',user=current_user)
 
    
